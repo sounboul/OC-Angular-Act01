@@ -1,3 +1,4 @@
+import { PostsService } from './../services/posts.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Post } from '../model/post.model';
 
@@ -8,32 +9,40 @@ import { Post } from '../model/post.model';
 })
 export class PostListItemComponent implements OnInit {
 
-  @Input() title: string;
-  @Input() content: string;
-  @Input() loveIts: number;
-  @Input() created_at: Date;
+  @Input() post: Post;
 
-  constructor() { }
+  constructor(private postsSerive: PostsService) { }
 
   ngOnInit() {
   }
 
   getColor() {
-  	if(this.loveIts>0){
-  		return 'green';
-  	}else if(this.loveIts<0){
-  		return 'red';
-  	}else{
-    	return '';  
-  	}
+    if (this.post.loveIts > 0 ) {
+      return 'green';
+    } else if (this.post.loveIts < 0) {
+      return 'red';
+    } else {
+      return '';
+    }
   }
 
-  yLoveIts(){
-  	 this.loveIts++;
+  yLoveIts() {
+    this.post.loveIts++;
+    this.updateData();
   }
 
-  yDontLoveIts(){
-  	 this.loveIts--;
+  yDontLoveIts() {
+    this.post.loveIts--;
+    this.updateData();
+  }
+
+  updateData() {
+    this.postsSerive.savePosts();
+    this.postsSerive.emitPosts();
+  }
+
+  onDeletePost(post: Post) {
+    this.postsSerive.deletePost(post);
   }
 
 }

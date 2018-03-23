@@ -1,13 +1,9 @@
 export class Post {
-	title: string;
-  	content: string;
-  	loveIts: number;
-  	created_at: Date;
+  created_at: number;
+  loveIts: number;
 
-  	constructor(title: string, content: string, loveIts: number = 0 ){
-  		this.title = title;
-  		this.content = content;
-  		this.loveIts = loveIts;
-  		this.created_at = new Date();  		
-  	}
+  constructor(public title: string, public content: string ) {
+    this.loveIts = 0 ;
+    this.created_at = new Date().getTime();
+  }
 }

@@ -1,20 +1,19 @@
 <li [ngClass]="{'list-group-item': true,
-                'list-group-item-success': loveIts>0,
-                'list-group-item-danger': loveIts<0
-                }"> 
+                'list-group-item-success': post.loveIts > 0,
+                'list-group-item-danger': post.loveIts < 0
+                }">
     <div class="row">
     	<div class="col-md-12">
-	    	<div class="pull-left">
-	   			<h4 [ngStyle]="{color: getColor()}" >{{ title }} {{loveIts}}</h4>
+        <div class="row">
+           <h2 class="col-xs-8" [ngStyle]="{color: getColor()}" >{{ post.title }} </h2>
+           <h3 class="col-xs-4"><span class="pull-right">{{ post.created_at |  date:'MM/dd/yyyy, HH:mm a' }}</span></h3>
 	    	</div>
-	    	<div class="pull-right">
-	    		<span>{{ created_at |  date: 'short' }} </span>  
-	    	</div>   		              	
 	    </div>
 	    <div class="col-md-12">
-	    	<p [ngStyle]="{color: getColor()}" >{{ content }}</p>
+	    	<p [ngStyle]="{color: getColor()}" >{{ post.content }}</p>
 	    </div>
     </div>
     <button class="btn btn-success" (click)="yLoveIts()" >Love it !</button>
-    <button class="btn btn-danger" (click)="yDontLoveIts()" >Don't love it !</button>  
+    <button class="btn btn-danger" (click)="yDontLoveIts()" >Don't love it !</button>
+    <button class="btn btn-danger pull-right" (click)="onDeletePost(post)" >Supprimer post</button>
 </li>
